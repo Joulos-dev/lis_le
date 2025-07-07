@@ -37,7 +37,7 @@ class Comment
     private Collection $commentThumbs;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'commentChildren')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?self $commentParent = null;
 
     /**
