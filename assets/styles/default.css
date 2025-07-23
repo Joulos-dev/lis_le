@@ -1,0 +1,137 @@
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* 6. Improve media defaults */
+img,
+picture,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+/* 8. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+    text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
+}
+
+/* Add offset to separate 1px border with outline */
+* {
+    outline-offset: 1px;
+}
+
+/* Button toggle pointers */
+button {
+    cursor: pointer;
+}
+
+/* Button disabled state */
+button:disabled {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Less aggressive borders */
+input,
+button,
+textarea,
+select,
+fieldset,
+th,
+td,
+hr {
+    border-radius: 3px;
+}
+
+/* Improved padding & margin on user action elements */
+input,
+select,
+textarea {
+    padding: 0.2rem;
+    padding-inline-start: 0.5rem;
+}
+button {
+    padding: 0.2rem;
+    padding-inline: 0.5rem;
+}
+ul,
+ol {
+    padding-inline-start: 1.6rem;
+}
+
+td {
+    padding-block: 0.2rem;
+    padding-inline: 0.5rem;
+}
+
+/* Single border by default */
+table {
+    border-collapse: collapse;
+}
+
+
+/* Lighter colors */
+body {
+    color: light-dark(#3e3a3a, #eee);
+    background-color: light-dark(#fff, #222);
+}
+
+/* Better link color, disable old visited */
+a,
+a:visited {
+    color: light-dark(royalblue, dodgerblue);
+}
+
+/* Less aggressive background colors */
+select,
+input,
+button {
+    background-color: light-dark(#2221, #fff1);
+}
+
+select:active,
+button:active {
+    background-color: light-dark(#2222, #fff2);
+}

@@ -6,5 +6,18 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
+import './styles/default.css'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+document.addEventListener("turbo:load", () => {
+
+
+    let menu = document.querySelector(".menu");
+    let menuOpen = document.querySelector(".menu-open");
+    menu.addEventListener("click", () => {
+        menuOpen.classList.toggle("hidden");
+    });
+
+
+});

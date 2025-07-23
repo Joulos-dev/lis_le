@@ -1,3 +1,81 @@
-body {
-    background-color: skyblue;
+.navbar {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button {
+    border:none;
+}
+
+.header-left{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+}
+
+.menu svg {
+    width: 50px;
+    height: 50px;
+}
+
+.logo img{
+    max-width: 100px;
+}
+
+.rechercher button {
+    display:none;
+}
+
+.menu-open {
+    position: absolute;
+    background-color: burlywood;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.post {
+    display: grid;
+    grid-template-rows: 1fr 5fr 0.5fr;
+    margin:2rem;
+    background-color:burlywood;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    gap: 5px;
+}
+
+.post img {
+    margin: auto;
+    border-radius: 10px;
+}
+
+.post-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline:2rem;
+}
+
+.post p {
+    text-align: center;
+}
+
+.post-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline:2rem;
+
+}
+
+.likes{
+    display: flex;
+
 }
