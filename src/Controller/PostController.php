@@ -52,8 +52,6 @@ final class PostController extends AbstractController
             'user' => $user
         ]);
 
-//        dd($postThumb);
-
         if( $postThumb === Null) {
             $postThumb = new PostThumb();
 
@@ -62,18 +60,16 @@ final class PostController extends AbstractController
             $postThumb->setType(true);
 
             $entityManager->persist($postThumb);
-            $entityManager->flush();
-
-//            return $this->json();
+        } else {
+            if($postThumb->isType() === true ) {
+                $entityManager->remove($postThumb);
+            } else {
+                $postThumb->setType(true);
+                $entityManager->persist($postThumb);
+            }
         }
 
-
-        //sinon
-            //si $postThumb->type = true
-                //ne fait rien
-            //sinon
-                //postThumb->setType = true
-
+        $entityManager->flush();
         return $this->redirectToRoute('app_home');
     }
 
