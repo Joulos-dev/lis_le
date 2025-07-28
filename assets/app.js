@@ -12,12 +12,12 @@ console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
 document.addEventListener("turbo:load", () => {
 
-
     let menu = document.querySelector(".menu");
     let menuOpen = document.querySelector(".menu-open");
     menu.addEventListener("click", () => {
         menuOpen.classList.toggle("hidden");
     });
 
-
 });
+
+import './reactions.js';

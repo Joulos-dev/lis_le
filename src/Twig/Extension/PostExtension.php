@@ -14,6 +14,7 @@ class PostExtension extends AbstractExtension
     {
         return [
             new TwigFunction('get_score', [PostExtensionRuntime::class, 'getScore']),
+            new TwigFunction('get_user_like', [PostExtensionRuntime::class, 'getUserLike']),
         ];
     }
 }

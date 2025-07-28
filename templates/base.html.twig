@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
@@ -17,7 +18,7 @@
       <div class="navbar">
           <div class="header-left">
               <div class="menu">
-                  <button name="menu" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-list" viewBox="0 0 16 16">
+                  <button name="menu" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" class="bi bi-list" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
                       </svg></button>
               </div>
@@ -38,16 +39,22 @@
               <div class="utilisateur">
                   {% if app.user %}
                   <div>
-
                         <a> @{{ app.user.username }}</a>
-                        <a href="{{ path('app_logout') }}">Se Déconnecter</a>
                   </div>
-                        {% else  %}
                   <div>
-                        <a href="{{ path('app_login') }}">Se Connecter</a>
-                        <a href="{{ path('app_register') }}">S'Inscrire</a>
+                      <a href="{{ path('app_logout') }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                          </svg></a>
                   </div>
-                        {% endif %}
+                  {% else  %}
+                  <div>
+                        <a href="{{ path('app_login') }}">Se connecter</a>
+                  </div>
+                  <div>
+                          <a href="{{ path('app_register') }}">S'Inscrire</a>
+                  </div>
+                  {% endif %}
 
 
 

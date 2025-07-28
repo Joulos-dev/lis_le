@@ -2,13 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\Comment;
+use App\Entity\Message;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Comment>
+ * @extends PersistentProxyObjectFactory<Message>
  */
-final class CommentFactory extends PersistentProxyObjectFactory
+final class MessageFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -21,7 +21,7 @@ final class CommentFactory extends PersistentProxyObjectFactory
 
     public static function class(): string
     {
-        return Comment::class;
+        return Message::class;
     }
 
     /**
@@ -32,11 +32,14 @@ final class CommentFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-//            'commentParent' => CommentFactory::random(),
             'content' => self::faker()->text(),
+            'title' => self::faker()->words(5),
+            'image' => 'https://picsum.photos/300/400',
             'createdAt' => self::faker()->dateTime(),
-            'post' => PostFactory::random(),
             'user' => UserFactory::random(),
+            'category' => CategoryFactory::random(),
+            'parent' => MessageFactory::random(),
+            'type' => self::faker()->randomElement(['post', 'message']),
         ];
     }
 

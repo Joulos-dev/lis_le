@@ -2,13 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\Post;
+use App\Entity\Reaction;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Post>
+ * @extends PersistentProxyObjectFactory<Reaction>
  */
-final class PostFactory extends PersistentProxyObjectFactory
+final class ReactionFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -21,7 +21,7 @@ final class PostFactory extends PersistentProxyObjectFactory
 
     public static function class(): string
     {
-        return Post::class;
+        return Reaction::class;
     }
 
     /**
@@ -32,12 +32,10 @@ final class PostFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'category' => CategoryFactory::random(),
             'createdAt' => self::faker()->dateTime(),
+            'type' => self::faker()->boolean(),
+            'comment' => MessageFactory::random(),
             'user' => UserFactory::random(),
-            'title' => self::faker()->word(),
-            'content' => self::faker()->text(),
-            'image_path' => 'https://picsum.photos/200/300'
         ];
     }
 
@@ -47,7 +45,7 @@ final class PostFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Post $post): void {})
+            // ->afterInstantiate(function(Reaction $commentThumb): void {})
         ;
     }
 }

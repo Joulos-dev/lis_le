@@ -2,8 +2,8 @@
 
 namespace App\Twig\Runtime;
 
-use App\Entity\Post;
-use App\Entity\PostThumb;
+use App\Entity\Message;
+use Doctrine\ORM\Query\AST\LikeExpression;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class PostExtensionRuntime implements RuntimeExtensionInterface
@@ -14,19 +14,27 @@ class PostExtensionRuntime implements RuntimeExtensionInterface
 
     }
 
-    public function getScore(Post $post): int
+    public function getScore(Message $message): int
     {
         $score = 0;
-        foreach ($post->getPostThumbs() as $postThumb){
-            if($postThumb->isType() === true){
-                $score = $score +1;
+        if ($message->getReactions()->count() === 0) return $score;
+
+        foreach ($message->getReactions() as $reaction) {
+            if ($reaction->isType() === true) {
+                $score++;
             } else {
-                $score = $score - 1;
+                $score--;
             }
         }
-        //        foreach ($this->postThumb as $thumb) {
-//            $score += $thumb->isType() ? 1 : -1;
-//        }
+
         return $score;
     }
+
+    public function getUserLike(Like $like): int
+    {
+        $like = null;
+
+    }
+
+
 }

@@ -42,35 +42,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTime $createdAt = null;
 
     /**
-     * @var Collection<int, Post>
+     * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user')]
-    private Collection $posts;
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
+    private Collection $messages;
 
     /**
-     * @var Collection<int, Comment>
+     * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
     private Collection $comments;
 
     /**
-     * @var Collection<int, PostThumb>
+     * @var Collection<int, Reaction>
      */
-    #[ORM\OneToMany(targetEntity: PostThumb::class, mappedBy: 'user')]
-    private Collection $postThumbs;
+    #[ORM\OneToMany(targetEntity: Reaction::class, mappedBy: 'user')]
+    private Collection $reaction;
 
-    /**
-     * @var Collection<int, CommentThumb>
-     */
-    #[ORM\OneToMany(targetEntity: CommentThumb::class, mappedBy: 'user')]
-    private Collection $commentThumbs;
 
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
+        $this->messages = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->postThumbs = new ArrayCollection();
-        $this->commentThumbs = new ArrayCollection();
+        $this->reaction = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -171,26 +165,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Post>
+     * @return Collection<int, Message>
      */
-    public function getPosts(): Collection
+    public function getMessages(): Collection
     {
-        return $this->posts;
+        return $this->messages;
     }
 
-    public function addPost(Post $post): static
+    public function addPost(Message $post): static
     {
-        if (!$this->posts->contains($post)) {
-            $this->posts->add($post);
+        if (!$this->messages->contains($post)) {
+            $this->messages->add($post);
             $post->setUser($this);
         }
 
         return $this;
     }
 
-    public function removePost(Post $post): static
+    public function removePost(Message $post): static
     {
-        if ($this->posts->removeElement($post)) {
+        if ($this->messages->removeElement($post)) {
             // set the owning side to null (unless already changed)
             if ($post->getUser() === $this) {
                 $post->setUser(null);
@@ -201,14 +195,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Comment>
+     * @return Collection<int, Message>
      */
     public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    public function addComment(Comment $comment): static
+    public function addComment(Message $comment): static
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
@@ -218,7 +212,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeComment(Comment $comment): static
+    public function removeComment(Message $comment): static
     {
         if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
@@ -231,26 +225,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, PostThumb>
+     * @return Collection<int, Reaction>
      */
-    public function getPostThumbs(): Collection
+    public function getReaction(): Collection
     {
-        return $this->postThumbs;
+        return $this->reaction;
     }
 
-    public function addPostThumb(PostThumb $postThumb): static
+    public function addPostThumb(Reaction $postThumb): static
     {
-        if (!$this->postThumbs->contains($postThumb)) {
-            $this->postThumbs->add($postThumb);
+        if (!$this->reaction->contains($postThumb)) {
+            $this->reaction->add($postThumb);
             $postThumb->setUser($this);
         }
 
         return $this;
     }
 
-    public function removePostThumb(PostThumb $postThumb): static
+    public function removePostThumb(Reaction $postThumb): static
     {
-        if ($this->postThumbs->removeElement($postThumb)) {
+        if ($this->reaction->removeElement($postThumb)) {
             // set the owning side to null (unless already changed)
             if ($postThumb->getUser() === $this) {
                 $postThumb->setUser(null);
@@ -260,33 +254,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, CommentThumb>
-     */
-    public function getCommentThumbs(): Collection
-    {
-        return $this->commentThumbs;
-    }
-
-    public function addCommentThumb(CommentThumb $commentThumb): static
-    {
-        if (!$this->commentThumbs->contains($commentThumb)) {
-            $this->commentThumbs->add($commentThumb);
-            $commentThumb->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentThumb(CommentThumb $commentThumb): static
-    {
-        if ($this->commentThumbs->removeElement($commentThumb)) {
-            // set the owning side to null (unless already changed)
-            if ($commentThumb->getUser() === $this) {
-                $commentThumb->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 }

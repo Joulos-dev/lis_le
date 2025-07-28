@@ -2,75 +2,171 @@
 
 namespace App\Controller;
 
-use App\Entity\PostThumb;
-use App\Repository\CategoryRepository;
-use App\Repository\CommentRepository;
-use App\Repository\PostRepository;
-use App\Repository\PostThumbRepository;
-use Doctrine\ORM\EntityManager;
+use App\Entity\Message;
+use App\Entity\Reaction;
+use App\Entity\User;
+use App\Repository\MessageRepository;
+use App\Repository\ReactionRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Null_;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Form\CreateMessage;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PostController extends AbstractController
 {
-    #[Route('/post/show/{id}', name: 'app_post_show')]
+
+    #[Route('/message/show/{id}', name: 'app_post_show')]
     public function index(
-        string $id,
-        PostRepository $postRepository,
-        CommentRepository $commentRepository,
-        CategoryRepository $categoryRepository
-    ): Response
-    {
-
-        $post = $postRepository->findOneBy( ['id' => $id]);
-
-        $comments = $commentRepository->findBy(['post' => $post],['createdAt' => 'DESC'], 4);
-
-        return $this->render('post/show.html.twig', [
-            'post' => $post,
-            'comments' => $comments,
-        ]);
-    }
-
-    #[Route('/post/like/{id}', name: 'app_post_like')]
-    public function postLike(
-        string $id,
-        PostRepository $postRepository,
-        PostThumbRepository $postThumbRepository,
+        string                 $id,
+        MessageRepository      $messageRepository,
+        Request                $request,
         EntityManagerInterface $entityManager,
     ): Response
     {
+        $post = $messageRepository->findOneBy(['id' => $id]);
 
-        $user = $this->getUser();
+        $comment = new Message();
+        $form = $this -> createForm(CreateMessage::class, $comment);
+        $form->handleRequest($request);
 
-        $post = $postRepository->findOneBy( ['id' => $id]);
-        $postThumb = $postThumbRepository->findOneBy([
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_post_show');
+        }
+
+        return $this->render('post/show.html.twig', [
             'post' => $post,
-            'user' => $user
+            'commentForm' => $form,
+        ]);
+    }
+
+    #[Route('/make-reaction/{id}/{type}', name: 'app_make_reaction', methods: ['POST'])]
+    public function makeReaction(
+        string $id,
+        int $type,
+        UrlGeneratorInterface $generator,
+        MessageRepository $messageRepository,
+        ReactionRepository $reactionRepository,
+        EntityManagerInterface $em
+    ): JsonResponse
+    {
+        $message = $messageRepository->find($id);
+        $user = $this->getUser();
+        // Génère route de login
+        $action = $generator->generate('app_login');
+
+        if (!$user) {
+            return new JsonResponse($action);
+        }
+
+        $existingReaction = $reactionRepository->findOneBy([
+            'message' => $message,
+            'user' => $user,
         ]);
 
-        if( $postThumb === Null) {
-            $postThumb = new PostThumb();
+        $action = 'remove';
+        if ($type === 1) {
+            $action = 'add';
+        }
+        if ($existingReaction === null) {
+            $existingReaction = (new Reaction())
+                ->setUser($user)
+                ->setMessage($message)
+                ->setType($type === 1)
+                ->setCreatedAt(new \DateTime());
 
-            $postThumb->setPost($post);
-            $postThumb->setUser($user);
-            $postThumb->setType(true);
-
-            $entityManager->persist($postThumb);
+            $em->persist($existingReaction);
         } else {
-            if($postThumb->isType() === true ) {
-                $entityManager->remove($postThumb);
+            if (intval($existingReaction->isType()) === $type) {
+                $em->remove($existingReaction);
+                $action = 'remove';
             } else {
-                $postThumb->setType(true);
-                $entityManager->persist($postThumb);
+                $existingReaction->setType($type);
+                $action .= ':update';
             }
         }
 
-        $entityManager->flush();
-        return $this->redirectToRoute('app_home');
+        $em->flush();
+
+        return new JsonResponse($action);
     }
 
+
+//        $post = $postRepository->findOneBy( ['id' => $id]);
+//        $postThumb = $postThumbRepository->findOneBy([
+//            'post' => $post,
+//            'user' => $user
+//        ]);
+//
+//        if( $postThumb === Null) {
+//            $postThumb = new PostThumb();
+//
+//            $postThumb->setPost($post);
+//            $postThumb->setUser($user);
+//            $postThumb->setType(true);
+//
+//            $entityManager->persist($postThumb);
+//        } else {
+//            if($postThumb->isType() === true ) {
+//                $entityManager->remove($postThumb);
+//            } else {
+//                $postThumb->setType(true);
+//                $entityManager->persist($postThumb);
+//            }
+//        }
+//
+//        $entityManager->flush();
+//        return $this->redirectToRoute('app_home');
+//    }
+
+//
+//    #[Route('/post/dislike/{id}', name: 'app_post_dislike')]
+//    public function postDislike(
+//        string $id,
+//        PostRepository $postRepository,
+//        PostThumbRepository $postThumbRepository,
+//        EntityManagerInterface $entityManager,
+//    ): Response
+//    {
+//
+//        $user = $this->getUser();
+//
+//        $post = $postRepository->findOneBy( ['id' => $id]);
+//        $postThumb = $postThumbRepository->findOneBy([
+//            'post' => $post,
+//            'user' => $user
+//        ]);
+//
+//        if( $postThumb === Null) {
+//            $postThumb = new PostThumb();
+//
+//            $postThumb->setPost($post);
+//            $postThumb->setUser($user);
+//            $postThumb->setType(false);
+//
+//            $entityManager->persist($postThumb);
+//        } else {
+//            if($postThumb->isType() === false ) {
+//                $entityManager->remove($postThumb);
+//            } else {
+//                $postThumb->setType(false);
+//                $entityManager->persist($postThumb);
+//            }
+//        }
+//
+//        $entityManager->flush();
+//        return $this->redirectToRoute('app_home');
+//    }
+
+
 }
+
+
