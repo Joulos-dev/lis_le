@@ -3,6 +3,7 @@
 namespace App\Twig\Runtime;
 
 use App\Entity\Message;
+use App\Entity\User;
 use Doctrine\ORM\Query\AST\LikeExpression;
 use Twig\Extension\RuntimeExtensionInterface;
 
@@ -30,9 +31,9 @@ class PostExtensionRuntime implements RuntimeExtensionInterface
         return $score;
     }
 
-    public function getUserLike(Like $like): int
+    public function getUserLike(User $user, Message $message): int
     {
-        $like = null;
+        $user->getReaction();
 
     }
 
