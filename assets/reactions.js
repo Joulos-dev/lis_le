@@ -1,6 +1,10 @@
-document.addEventListener("turbo:load", () => {
+// document.addEventListener("turbo:load", () => {
+ window.addEventListener("load", () => {
+     initReactionButtons(document);
+});
 
-    let buttons = document.querySelectorAll("[data-make-reaction]");
+function initReactionButtons(container) {
+    let buttons = container.querySelectorAll("[data-make-reaction]");
 
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
@@ -11,14 +15,19 @@ document.addEventListener("turbo:load", () => {
                     }
                 })
                 .then((jsonContent) => {
-                    // 'add' => utilisateur n'a jamais liké ce message ; la première fois est un 'up'
-                    // 'remove' => utilisateur n'a jamais liké ce message ; la première fois est un 'down'
-                    // 'remove:update' => utilisateur a liké ce message en "up" ; maintenant il le "down"
-                    // 'add:update' => utilisateur a liké ce message en "down" ; maintenant il le "up"
-                    console.log(jsonContent);
+                    if (jsonContent.login) {
+                        // TODO : faire ton sweetalert ici pour indiquer la connection nécessaire
+                        // Faire le href dans le confirm de l'alert
+                        window.location.href = jsonContent.login;
+                    }
+
+                    const containerLikes = document.querySelector('[data-block-likes="'+jsonContent.messageId+'"]');
+                    if (containerLikes) {
+                        containerLikes.innerHTML = jsonContent.block;
+                        initReactionButtons(containerLikes);
+                    }
+
                 });
         });
-        button.removeAttribute('data-wishlist'); // Sécurité pour ne pas communiquer d'informations sur nos routes AJAX
     });
-
-});
+}

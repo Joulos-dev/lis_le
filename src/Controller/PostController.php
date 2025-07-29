@@ -4,19 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Entity\Reaction;
-use App\Entity\User;
 use App\Repository\MessageRepository;
 use App\Repository\ReactionRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\CreateMessage;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PostController extends AbstractController
@@ -61,10 +57,10 @@ final class PostController extends AbstractController
         $message = $messageRepository->find($id);
         $user = $this->getUser();
         // Génère route de login
-        $action = $generator->generate('app_login');
+        $redirectLogin = $generator->generate('app_login');
 
         if (!$user) {
-            return new JsonResponse($action);
+            return new JsonResponse(['login' => $redirectLogin]);
         }
 
         $existingReaction = $reactionRepository->findOneBy([
@@ -72,10 +68,7 @@ final class PostController extends AbstractController
             'user' => $user,
         ]);
 
-        $action = 'remove';
-        if ($type === 1) {
-            $action = 'add';
-        }
+        $messageLiked = $type;
         if ($existingReaction === null) {
             $existingReaction = (new Reaction())
                 ->setUser($user)
@@ -87,16 +80,23 @@ final class PostController extends AbstractController
         } else {
             if (intval($existingReaction->isType()) === $type) {
                 $em->remove($existingReaction);
-                $action = 'remove';
+                $messageLiked = null;
             } else {
                 $existingReaction->setType($type);
-                $action .= ':update';
             }
         }
 
         $em->flush();
 
-        return new JsonResponse($action);
+        $block = $this->renderView('_partials/_block_likes.html.twig', [
+            'post' => $message,
+            'messageLiked' => $messageLiked,
+        ]);
+
+        return new JsonResponse([
+            'block' => $block,
+            'messageId' => $message->getId(),
+        ]);
     }
 
 

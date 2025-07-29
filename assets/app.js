@@ -1,4 +1,4 @@
-import './bootstrap.js';
+// import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -10,8 +10,11 @@ import './styles/default.css'
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
-document.addEventListener("turbo:load", () => {
+// document.addEventListener("turbo:load", () => {
+window.addEventListener("load", () => {
+    console.log("hello world")
 
+    
     let menu = document.querySelector(".menu");
     let menuOpen = document.querySelector(".menu-open");
     menu.addEventListener("click", () => {

@@ -32,17 +32,18 @@ class PostExtensionRuntime implements RuntimeExtensionInterface
         return $score;
     }
 
-    public function getUserLike(?User $user, Message $message): bool
+    public function hasUserReacted(?User $user, Message $message): ?int
     {
-        if($user === null){
-            return false;
+        if ($user === null) {
+            return null;
         }
         foreach ($user->getReaction() as $reaction) {
             if($reaction->getMessage()->getId() === $message->getId() ) {
-                return true;
+                return $reaction->isType();
             }
         }
-        return false;
+        return null;
     }
+
 
 }

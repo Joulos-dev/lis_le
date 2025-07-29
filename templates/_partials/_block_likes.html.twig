@@ -1,0 +1,12 @@
+
+<div>
+    {% include '_partials/like.html.twig' %}
+</div>
+<div>
+    {% set score = get_score(post) %}
+    <p>{{ score }}</p>
+</div>
+<div>
+    {% include '_partials/dislike.html.twig' %}
+</div>
+
