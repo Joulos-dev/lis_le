@@ -38,12 +38,11 @@ class PostExtensionRuntime implements RuntimeExtensionInterface
             return false;
         }
         foreach ($user->getReaction() as $reaction) {
-            if($reaction->getId()== $message->getId()) {
+            if($reaction->getMessage()->getId() === $message->getId() ) {
                 return true;
             }
         }
         return false;
     }
-
 
 }
