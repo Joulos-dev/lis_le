@@ -5,8 +5,10 @@
 {% block body %}
 
 
+
 <div class="post-container">
     {% for post in lastPost %}
+        {{ dump(get_user_like(app.user, post)) }}
     <div class="post">
         <div class="post-top">
             <div>

@@ -5,6 +5,7 @@ namespace App\Twig\Runtime;
 use App\Entity\Message;
 use App\Entity\User;
 use Doctrine\ORM\Query\AST\LikeExpression;
+use phpDocumentor\Reflection\Types\Boolean;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class PostExtensionRuntime implements RuntimeExtensionInterface
@@ -31,10 +32,17 @@ class PostExtensionRuntime implements RuntimeExtensionInterface
         return $score;
     }
 
-    public function getUserLike(User $user, Message $message): int
+    public function getUserLike(?User $user, Message $message): bool
     {
-        $user->getReaction();
-
+        if($user === null){
+            return false;
+        }
+        foreach ($user->getReaction() as $reaction) {
+            if($reaction->getId()== $message->getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
