@@ -9,13 +9,17 @@
             <div>
                 <h3> <a href="">@{{ post.user.username}}</a></h3>
             </div>
-            <div>
-                <h3>{{ post.category.name }}</h3>
-            </div>
+            {% if post.category is not null %}
+                <div>
+                    <h3>{{ post.category.name }}</h3>
+                </div>
+            {% endif %}
         </div>
     </div>
     <div class="post-middle">
-        <img src="{{ post.image }}" alt="image-post">
+        {% if post.image is not null %}
+            <img src="{{ post.image }}" alt="image-post">
+        {% endif %}
         <p> {{ post.content }} </p>
     </div>
     <div class="post-bottom">
