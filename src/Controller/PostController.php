@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Entity\Reaction;
+use App\Form\MessageFormType;
 use App\Repository\MessageRepository;
 use App\Repository\ReactionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Form\CreateMessage;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class PostController extends AbstractController
@@ -22,25 +21,17 @@ final class PostController extends AbstractController
     public function index(
         string                 $id,
         MessageRepository      $messageRepository,
-        Request                $request,
-        EntityManagerInterface $entityManager,
     ): Response
     {
-        $post = $messageRepository->findOneBy(['id' => $id]);
-
-        $comment = new Message();
-        $form = $this -> createForm(CreateMessage::class, $comment);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $entityManager->persist($comment);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_post_show');
-        }
+        $post = $messageRepository->findFullById($id);
+        $message = new Message();
+        $newMessageForm = $this->createForm(MessageFormType::class, $message, [
+            'isPost' => false
+        ]);
 
         return $this->render('post/show.html.twig', [
             'post' => $post,
-            'commentForm' => $form,
+            'newMessageForm' => $newMessageForm,
         ]);
     }
 
@@ -55,8 +46,9 @@ final class PostController extends AbstractController
     ): JsonResponse
     {
         $message = $messageRepository->find($id);
+
+
         $user = $this->getUser();
-        // Génère route de login
         $redirectLogin = $generator->generate('app_login');
 
         if (!$user) {
@@ -98,74 +90,6 @@ final class PostController extends AbstractController
             'messageId' => $message->getId(),
         ]);
     }
-
-
-//        $post = $postRepository->findOneBy( ['id' => $id]);
-//        $postThumb = $postThumbRepository->findOneBy([
-//            'post' => $post,
-//            'user' => $user
-//        ]);
-//
-//        if( $postThumb === Null) {
-//            $postThumb = new PostThumb();
-//
-//            $postThumb->setPost($post);
-//            $postThumb->setUser($user);
-//            $postThumb->setType(true);
-//
-//            $entityManager->persist($postThumb);
-//        } else {
-//            if($postThumb->isType() === true ) {
-//                $entityManager->remove($postThumb);
-//            } else {
-//                $postThumb->setType(true);
-//                $entityManager->persist($postThumb);
-//            }
-//        }
-//
-//        $entityManager->flush();
-//        return $this->redirectToRoute('app_home');
-//    }
-
-//
-//    #[Route('/post/dislike/{id}', name: 'app_post_dislike')]
-//    public function postDislike(
-//        string $id,
-//        PostRepository $postRepository,
-//        PostThumbRepository $postThumbRepository,
-//        EntityManagerInterface $entityManager,
-//    ): Response
-//    {
-//
-//        $user = $this->getUser();
-//
-//        $post = $postRepository->findOneBy( ['id' => $id]);
-//        $postThumb = $postThumbRepository->findOneBy([
-//            'post' => $post,
-//            'user' => $user
-//        ]);
-//
-//        if( $postThumb === Null) {
-//            $postThumb = new PostThumb();
-//
-//            $postThumb->setPost($post);
-//            $postThumb->setUser($user);
-//            $postThumb->setType(false);
-//
-//            $entityManager->persist($postThumb);
-//        } else {
-//            if($postThumb->isType() === false ) {
-//                $entityManager->remove($postThumb);
-//            } else {
-//                $postThumb->setType(false);
-//                $entityManager->persist($postThumb);
-//            }
-//        }
-//
-//        $entityManager->flush();
-//        return $this->redirectToRoute('app_home');
-//    }
-
 
 }
 

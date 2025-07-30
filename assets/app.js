@@ -14,7 +14,7 @@ console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 window.addEventListener("load", () => {
     console.log("hello world")
 
-    
+
     let menu = document.querySelector(".menu");
     let menuOpen = document.querySelector(".menu-open");
     menu.addEventListener("click", () => {
@@ -24,3 +24,4 @@ window.addEventListener("load", () => {
 });
 
 import './reactions.js';
+import './message-answer.js';

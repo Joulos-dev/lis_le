@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SubmitPostController!{% endblock %}
+
+{% form_theme newMessageForm 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{% block body %}
+
+    <h1>Création d'un nouveau post !</h1>
+
+    {{ form_start(newMessageForm) }}
+
+    <div>
+        {{ form_row(newMessageForm.title) }}
+    </div>
+    <div>
+        {{ form_row(newMessageForm.image) }}
+    </div>
+    <div>
+        {{ form_row(newMessageForm.content) }}
+    </div>
+    <div class="form-checkbox">
+        <div>
+            {{ form_row(newMessageForm.category) }}
+        </div>
+    </div>
+
+    <button type="submit">Submit</button>
+
+    {{ form_end(newMessageForm) }}
+
+{% endblock %}

@@ -16,28 +16,15 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-    //    /**
-    //     * @return Comment[] Returns an array of Comment objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Comment
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findFullById(string $id): ?Message
+    {
+        return $this->createQueryBuilder('m')
+            ->select('m', 'c')
+            ->leftJoin('m.children', 'c')
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('c.createdAt', 'DESC')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
