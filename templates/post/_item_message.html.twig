@@ -1,16 +1,13 @@
 
+{#partial qui s'appelle lui même (boucle) pour aller chercher les messages du parent ID et les place en dessous de celui-ci #}
+
 <div class="post-container">
     {% include '_partials/_post.html.twig' with {
-        'post': post,
         'answer': true
     } %}
 </div>
 
 {% for comment in post.children %}
-{#    {% include '_partials/_post.html.twig' with {#}
-{#        'post': comment,#}
-{#        'answer': true#}
-{#    } %}#}
     {% include 'post/_item_message.html.twig' with {
         'post': comment,
         'answer': true

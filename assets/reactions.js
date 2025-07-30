@@ -3,6 +3,10 @@
      initReactionButtons(document);
 });
 
+
+// js qui réagit a l'event click sur les pouces pour remplir / vider le svg
+// et comptabiliser le nombre de like - le nombre de dislike
+// Ceci est en requete AJAX (requete asynchrone HTTP ) qui permet d'actualiser la page sans la rafraichir
 function initReactionButtons(container) {
     let buttons = container.querySelectorAll("[data-make-reaction]");
 

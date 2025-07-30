@@ -66,6 +66,9 @@ final class SubmitPostController extends AbstractController
                 return $this->redirectToRoute('app_home');
             }
 
+
+            // boucle while qui permet de récupérer l'ID du dernier parent afin de rester sur la page show du post
+            // et de ne pas partir sur un show du commentaire.
             $parentId = $parentMessage->getId();
             while ($parentMessage->getParent() !== null) {
                 $parentMessage = $parentMessage->getParent();

@@ -23,7 +23,7 @@
             <div class="utilisateur">
                 {% if app.user %}
                     <div>
-                        <a> @{{ app.user.username }}</a>
+                        <a href="{{ path('app_profile', {'id': app.user.id }) }}"> @{{ app.user.username }}</a>
                     </div>
                     <div>
                         <a href="{{ path('app_submit_post') }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">

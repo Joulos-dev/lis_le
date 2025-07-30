@@ -30,6 +30,7 @@ class MessageFormType extends AbstractType
                     }
                 ])
                 ->add('image', FileType::class, [
+                    // dire a symfony que l'on va gérer nous meme le query builder
                     'mapped' => false,
                 ]);
         }

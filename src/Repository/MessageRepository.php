@@ -16,6 +16,9 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
+
+    // query builder créer à la main. , il sert à classer les commentaires des commentaires par ordre de création
+    // lorsqu'ils s'affichent.
     public function findFullById(string $id): ?Message
     {
         return $this->createQueryBuilder('m')

@@ -19,7 +19,7 @@ final class HomeController extends AbstractController
             5
         );
 
-        dump($lastPost);
+
 
         return $this->render('home/index.html.twig', [
             'lastPost' => $lastPost,

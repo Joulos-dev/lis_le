@@ -23,6 +23,7 @@ final class PostController extends AbstractController
         MessageRepository      $messageRepository,
     ): Response
     {
+        // le findFullById est un query builder créer a la main dans MessageRepository
         $post = $messageRepository->findFullById($id);
         $message = new Message();
         $newMessageForm = $this->createForm(MessageFormType::class, $message, [
