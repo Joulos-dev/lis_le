@@ -14,7 +14,7 @@
         <div class="header-middle">
             <div class="rechercher">
                 <form method="get" action="{{ path('app_home') }}">
-                    <label for="recherche" id="recherche"></label>
+                    <label for="recherche" id="recherche-label"></label>
                     <input id="recherche" type="text" placeholder="Rechercher..." name="recherche">
                     <button type="submit">Submit</button>
                 </form>
@@ -47,11 +47,17 @@
             </div>
         </div>
     </div>
-    <div class="menu-open hidden">
+    <ul class="menu-open hidden">
         {% set categories = get_categories() %}
         {% for category in categories %}
-            <h2> <a href="{{ path('app_post_category', {'id': category.id })}}">{{ category.name }}</a></h2>
+            <li>
+                <p>
+                    <a href="{{ path('app_post_category', {'id': category.id })}}">
+                        <strong>{{ category.name }}</strong>
+                    </a>
+                </p>
+            </li>
         {% endfor %}
-    </div>
+    </ul>
 
 </header>

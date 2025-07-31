@@ -41,6 +41,7 @@ h4,
 h5,
 h6 {
     overflow-wrap: break-word;
+    color: 	#E9ECF0;
 }
 
 /* 9. Improve line wrapping */
@@ -112,21 +113,9 @@ table {
 /* Lighter colors */
 body {
     color: light-dark(#3e3a3a, #eee);
-    background-color: light-dark(#fff, #222);
+    background-color:#0F0F0F;
 }
 
-/* Better link color, disable old visited */
-a,
-a:visited {
-    color: light-dark(royalblue, dodgerblue);
-}
-
-/* Less aggressive background colors */
-select,
-input,
-button {
-    background-color: light-dark(#2221, #fff1);
-}
 
 select:active,
 button:active {

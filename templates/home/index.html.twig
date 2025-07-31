@@ -4,7 +4,16 @@
 
 {% block body %}
 
-    <h1>Fil d'actualité</h1>
+
+
+    {% if searchQuery %}
+        <h1>Recherche</h1>
+        <div>
+            <p>Résultat de votre recherche: <strong> " {{ searchQuery }} " </strong></p>
+        </div>
+    {% else %}
+        <h1>Fil d'actualité</h1>
+    {% endif %}
 
 <div class="post-container">
     {% for post in lastPost %}

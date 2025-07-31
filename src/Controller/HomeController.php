@@ -15,10 +15,6 @@ final class HomeController extends AbstractController
     public function index(MessageRepository $messageRepository, Request $request): Response
     {
 
-
-
-
-
         $searchQuery = $request->query->get('recherche'); // Récupère la valeur du champ 'recherche'
 
         if ($searchQuery) {
@@ -30,8 +26,6 @@ final class HomeController extends AbstractController
                 5
             );
         }
-
-
 
         return $this->render('home/index.html.twig', [
             'lastPost' => $post,

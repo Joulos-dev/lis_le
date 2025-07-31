@@ -1,11 +1,22 @@
+header {
+    position:sticky;
+    top: 1rem;
+    background-color: #0F0F0F;
+    border-radius: 15px;
+    margin: 8px;
+
+}
+
 .navbar {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
-    margin-block:1rem;
+    margin-block:0.5rem;
+
 }
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 button {
@@ -15,7 +26,7 @@ button {
 .header-left {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap:12px;
     align-items: center;
     justify-content: center;
 }
@@ -37,17 +48,26 @@ button {
     height: 25px;
 }
 
+.menu button {
+    background: #E9ECF0;
+}
+
 .menu svg {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
 }
 
 .logo img{
-    max-width: 60px;
+    width: 40px;
+    height: 40px;
+    color: #E9ECF0;
+    border-radius: 10px;
 }
 
 #recherche {
     max-width: 110px;
+    border-radius: 25px;
+    border: none;
 }
 
 .rechercher button {
@@ -58,8 +78,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:12px;
-
+    gap:8px;
 }
 
 .utilisateur a {
@@ -73,25 +92,31 @@ button {
 
 .menu-open {
     position: absolute;
-    background-color: burlywood;
-    border: none;
+    background-color: #1B2A41;
+    border: 1px solid #fff2;
     border-radius: 10px;
-    padding: 5px;
+    padding: 10px;
+    text-align: center;
+    color: #E9ECF0;
+    list-style: none;
 }
+
 
 .hidden {
     display: none;
 }
 
-h1 {
+h1,
+h2 {
     text-align: center;
 }
 
 .post {
     display: flex;
     flex-direction: column;
-    margin:2rem;
-    background-color:burlywood;
+    margin-block:2rem;
+    margin-inline:0.5rem;
+    background-color:#1B2A41;
     border: none;
     border-radius: 10px;
     padding: 5px;
@@ -100,7 +125,12 @@ h1 {
 
 .post-user {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.response-debug {
+    display: flex;
+    align-items: center;
 }
 
 .post h3 {
@@ -110,6 +140,16 @@ h1 {
 .post img {
     margin: auto;
     border-radius: 10px;
+}
+
+.post button {
+    background-color: #1B2A41;
+    color: #E9ECF0;
+}
+
+.post a {
+    background-color: #1B2A41;
+    color: #5B8DB8;
 }
 
 .post-top {
@@ -135,6 +175,23 @@ h1 {
     align-items: center;
     gap:0.5rem;
 }
+
+a svg {
+    color: white;
+    height: 20px;
+    width: 20px;
+}
+
+.bouton-dislike svg {
+    height: 20px;
+    width: 20px;
+}
+
+.bouton-like svg {
+    height: 20px;
+    width: 20px;
+}
+
 
 .comments {
     background-color: cornflowerblue;

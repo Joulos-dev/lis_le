@@ -7,14 +7,14 @@
 
     <h1>Profil de {{ profile.username }}</h1>
 
-    <h2>Post</h2>
+    <h2>Tous les Posts</h2>
     <div>
         {% for post in userPosts %}
 
             {% include '_partials/_post.html.twig'%}
         {% endfor %}
     </div>
-    <h2>Commentaires</h2>
+    <h2>Tous les Commentaires</h2>
     <div>
         {% for post in userComments %}
             {% include '_partials/_post.html.twig' with {
