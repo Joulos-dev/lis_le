@@ -4,16 +4,17 @@
 
 {% block body %}
 
-    <h1>Mon profil</h1>
 
+    <h1>Profil de @{{ profile.username }}</h1>
 
-    <h2>Mes Post</h2>
+    <h2>Post</h2>
     <div>
         {% for post in userPosts %}
+
             {% include '_partials/_post.html.twig' %}
         {% endfor %}
     </div>
-    <h2>Mes commentaires</h2>
+    <h2>Commentaires</h2>
     <div>
         {% for post in userComments %}
             {% include '_partials/_post.html.twig' with {

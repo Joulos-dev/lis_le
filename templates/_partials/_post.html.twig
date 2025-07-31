@@ -10,7 +10,7 @@
         </div>
         <div class="post-user">
             <div>
-                <h3> <a href="">@{{ post.user.username}}</a></h3>
+                <h3> <a href="{{ path('app_profile', {'id': post.id }) }}">@{{ post.user.username}}</a></h3>
             </div>
             {% if post.category is not null %}
                 <div>
