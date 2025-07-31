@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use App\Enum\MessageType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -30,4 +31,23 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function searchByQuery(?string $query): array
+    {
+        if (!$query) {
+            return []; // Retourne un tableau vide si la requête est vide
+        }
+
+        return $this->createQueryBuilder('p') // 'p' est un alias pour Product
+            ->andWhere('p.title LIKE :query OR p.content LIKE :query')
+            ->andWhere('p.type = :type')// Adaptez les champs de recherche
+            ->setParameter('query', '%' . $query . '%')
+            ->setParameter('type', MessageType::MESSAGE_TYPE_POST)// Ajoute des wildcards pour une recherche partielle
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 }
+
+

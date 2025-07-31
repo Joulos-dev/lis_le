@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ProfileController extends AbstractController
 {
-    #[Route('/profile{id}', name: 'app_profile')]
+    #[Route('/profile/{id}', name: 'app_profile')]
     public function index(
         string $id,
         MessageRepository $messageRepository,
@@ -19,6 +19,8 @@ final class ProfileController extends AbstractController
     {
 
         $profile = $userRepository->find($id);
+
+        dump($profile);
 
         $userPosts = $messageRepository->findBy(
             ['type' => 'post', 'user' => $id],

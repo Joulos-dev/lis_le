@@ -4,6 +4,10 @@
     margin-block:1rem;
 }
 
+a {
+    text-decoration: none;
+}
+
 button {
     border:none;
 }
@@ -28,13 +32,18 @@ button {
     justify-content: center;
 }
 
+.header-right svg {
+    width:25px;
+    height: 25px;
+}
+
 .menu svg {
     width: 30px;
     height: 30px;
 }
 
 .logo img{
-    max-width: 50px;
+    max-width: 60px;
 }
 
 #recherche {
@@ -55,7 +64,6 @@ button {
 
 .utilisateur a {
     text-decoration: none;
-    background-color: burlywood;
     border: none;
     color: white;
     border-radius: 15px;
@@ -73,6 +81,10 @@ button {
 
 .hidden {
     display: none;
+}
+
+h1 {
+    text-align: center;
 }
 
 .post {
