@@ -10,8 +10,9 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    max-width: 500px;
+    max-width: 650px;
     margin: auto;
+    background-color: #0f0f0feb;
 }
 
 /* 6. Improve media defaults */
@@ -91,7 +92,6 @@ input,
 select,
 textarea {
     padding: 0.2rem;
-    padding-inline-start: 0.5rem;
 }
 
 ul,
@@ -99,23 +99,27 @@ ol {
     padding-inline-start: 1.6rem;
 }
 
-td {
-    padding-block: 0.2rem;
-    padding-inline: 0.5rem;
+td, th {
+    padding-block: 0.1rem;
+    padding-inline: 0.1rem;
+    border: solid 1px white;
+    color: white;
 }
 
-/* Single border by default */
+.navigation {
+    color: white;
+    text-align: center;
+}
+
+.tableau {
+    display: flex;
+    justify-content: center;
+}
+
 table {
     border-collapse: collapse;
+    text-align: center;
 }
-
-
-/* Lighter colors */
-body {
-    color: light-dark(#3e3a3a, #eee);
-    background-color:#0F0F0F;
-}
-
 
 select:active,
 button:active {

@@ -19,6 +19,8 @@
 
     {% block body %}{% endblock %}
 
-    {% block footer %}{% endblock %}
+    {% block footer %}
+        {% include '_partials/_footer.html.twig' %}
+    {% endblock %}
     </body>
 </html>

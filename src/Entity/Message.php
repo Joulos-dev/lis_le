@@ -18,7 +18,7 @@ class Message
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -59,6 +59,9 @@ class Message
      */
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
     private Collection $children;
+
+    #[ORM\Column]
+    private ?int $treePosition = null;
 
     public function __construct()
     {
@@ -227,6 +230,18 @@ class Message
     public function setType(?string $type): Message
     {
         $this->type = $type;
+        return $this;
+    }
+
+    public function getTreePosition(): ?int
+    {
+        return $this->treePosition;
+    }
+
+    public function setTreePosition(int $treePosition): static
+    {
+        $this->treePosition = $treePosition;
+
         return $this;
     }
 

@@ -1,17 +1,15 @@
 header {
     position:sticky;
-    top: 1rem;
-    background-color: #0F0F0F;
-    border-radius: 15px;
-    margin: 8px;
-
+    top: 0;
+    background-color: #1B2A41;
+    border-radius:10px;
+    margin-inline:8px;
 }
 
 .navbar {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-block:0.5rem;
-
 }
 
 a {
@@ -37,16 +35,16 @@ button {
     justify-content: center;
 }
 
+.header-middle h3{
+    text-align: center;
+}
+
 .header-right {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.header-right svg {
-    width:25px;
-    height: 25px;
-}
 
 .menu button {
     background: #E9ECF0;
@@ -55,23 +53,40 @@ button {
 .menu svg {
     width: 25px;
     height: 25px;
+    @media screen and (width > 800px) {
+        width: 35px;
+        height: 35px;
+    }
 }
 
 .logo img{
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     color: #E9ECF0;
     border-radius: 10px;
+
+    @media screen and (width > 800px) {
+        width: 50px;
+        height: 50px;
+    }
 }
 
 #recherche {
-    max-width: 110px;
+    max-width: 100px;
     border-radius: 25px;
     border: none;
+    @media screen and (width > 800px) {
+        max-width: 200px;
+
+    }
 }
 
 .rechercher button {
     display:none;
+}
+
+.recherche-resultat {
+    margin-inline:1rem;
 }
 
 .utilisateur {
@@ -115,12 +130,15 @@ h2 {
     display: flex;
     flex-direction: column;
     margin-block:2rem;
-    margin-inline:0.5rem;
     background-color:#1B2A41;
     border: none;
     border-radius: 10px;
     padding: 5px;
     gap: 5px;
+}
+
+.post-container {
+    margin-inline:8px;
 }
 
 .post-user {
@@ -180,16 +198,29 @@ a svg {
     color: white;
     height: 20px;
     width: 20px;
+
+    @media screen and (width > 800px) {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .bouton-dislike svg {
     height: 20px;
     width: 20px;
+    @media screen and (width > 800px) {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .bouton-like svg {
     height: 20px;
     width: 20px;
+    @media screen and (width > 800px) {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 
@@ -198,4 +229,34 @@ a svg {
     padding: 2px;
     border-radius: 5px;
     margin: 0.5rem;
+}
+
+.form-container {
+    border: none;
+    background-color: #1B2A41;
+    border-radius: 5px;
+    margin-inline: 8px;
+    padding: 1rem;
+}
+
+.form-button {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+.label {
+    color: white;
+    margin-top: 1rem;
+}
+
+.input input, textarea {
+    width: 100%;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 }

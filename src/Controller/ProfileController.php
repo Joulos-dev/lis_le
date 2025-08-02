@@ -7,6 +7,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class ProfileController extends AbstractController
 {
@@ -24,13 +25,13 @@ final class ProfileController extends AbstractController
 
         $userPosts = $messageRepository->findBy(
             ['type' => 'post', 'user' => $id],
-            ['createdAt' => 'DESC'],
+            ['createdAt' => 'ASC'],
         );
 
 
         $userComments = $messageRepository->findBy(
             ['type' => 'message', 'user' => $id],
-            ['createdAt' => 'DESC'],
+            ['createdAt' => 'ASC'],
         );
 
 

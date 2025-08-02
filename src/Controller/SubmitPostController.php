@@ -43,6 +43,9 @@ final class SubmitPostController extends AbstractController
             if ($id !== null) {
                 $parentMessage = $messageRepository->findOneBy(['id' => $id]);
                 $message->setParent($parentMessage);
+                $message->setTreePosition($parentMessage->getTreePosition() + 1);
+            } else {
+                $message->setTreePosition(0);
             }
 
             if ($newMessageForm->has('image')) {

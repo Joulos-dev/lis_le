@@ -5,17 +5,22 @@
 {% block body %}
 
 
-    <h1>Profil de {{ profile.username }}</h1>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_admin_list') }}" style="color: red;padding: 1rem">Passer en vue Admin</a>
+    {% endif %}
+
+    <h1>Profil de {{ profile.username }} </h1>
+
 
     <h2>Tous les Posts</h2>
-    <div>
+    <div class="post-container">
         {% for post in userPosts %}
 
             {% include '_partials/_post.html.twig'%}
         {% endfor %}
     </div>
     <h2>Tous les Commentaires</h2>
-    <div>
+    <div class="post-container">
         {% for post in userComments %}
             {% include '_partials/_post.html.twig' with {
                 'message': post,

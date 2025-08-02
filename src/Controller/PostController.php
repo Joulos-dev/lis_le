@@ -92,6 +92,46 @@ final class PostController extends AbstractController
         ]);
     }
 
+    #[Route('/delete/{id}', name: 'app_delete')]
+    public function deletePost(
+        string                 $id,
+        MessageRepository      $messageRepository,
+        EntityManagerInterface $entityManager,
+    ): Response
+    {
+
+        $user = $this->getUser();
+
+        /** @var Message $message */
+        $message = $messageRepository->find($id);
+
+        if($user->getId()=== $message->getUser()->getId() ) {
+            $entityManager->remove($message);
+            $entityManager->flush();
+        } else {
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->redirectToRoute('app_home');
+    }
+
+//    #[Route('/edit/{id}', name: 'app_edit')]
+//    public function editPost(
+//        string                 $id,
+//        MessageRepository      $messageRepository,
+//        EntityManagerInterface $entityManager,
+//    ): Response
+//    {
+//
+//        $message = $messageRepository->find($id);
+//        $entityManager->persist($message);
+//        $entityManager->flush();
+//
+//        return $this->render('home/admin_list.html.twig', [
+//            'message' => $message,
+//        ]);
+//    }
+
 }
 
 

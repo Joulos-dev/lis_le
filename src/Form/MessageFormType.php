@@ -36,7 +36,12 @@ class MessageFormType extends AbstractType
         }
 
         $builder
-            ->add('content', TextareaType::class);
+            ->add('content', TextareaType::class, [
+                'label' => 'Content',
+                'attr' => [
+                    'rows' => 5, // Définit le nombre de lignes visibles par défaut
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

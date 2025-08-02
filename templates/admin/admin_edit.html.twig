@@ -1,12 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block title %}Hello SubmitPostController!{% endblock %}
-
-{% form_theme newMessageForm 'bootstrap_5_horizontal_layout.html.twig' %}
+{% block title %}Building in progress{% endblock %}
 
 {% block body %}
 
-    <h1>Création d'un nouveau post !</h1>
+    <h1>Edit d'un post existant !</h1>
 
     {{ form_start(newMessageForm) }}
 
@@ -43,10 +41,6 @@
 
     </div>
     {{ form_end(newMessageForm) }}
-
-
-
-
 
 
 {% endblock %}

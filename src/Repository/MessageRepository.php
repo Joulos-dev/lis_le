@@ -48,6 +48,13 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getAll()
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere("m.type = :type")
+            ->setParameter('type', MessageType::MESSAGE_TYPE_POST);
+    }
+
 }
 
 
