@@ -1,12 +1,14 @@
 
-{#partial qui s'appelle lui même (boucle) pour aller chercher les messages du parent ID et les place en dessous de celui-ci #}
-
+{# partial qui s'appelle lui même (boucle) pour aller chercher
+ les messages du parent ID et les place en dessous de celui-ci #}
 <div class="post-container">
     {% include '_partials/_post.html.twig' with {
         'answer': true
     } %}
 </div>
 
+{#pour chaque message parent il affiche les commentaire#}
+{# enfant avec les paramètres comment et true (récursif) #}
 {% for comment in post.children %}
     {% include 'post/_item_message.html.twig' with {
         'post': comment,

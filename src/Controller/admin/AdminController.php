@@ -18,7 +18,7 @@ final class AdminController extends AbstractController
     #[Route('/admin/list', name: 'app_admin_list')]
     public function index(MessageRepository $messageRepository, Request $request, PaginatorInterface $paginator): Response
     {
-
+        // faire une pagination pour mon tableau d'admin
         $posts = $paginator->paginate(
             $messageRepository->getAll(), /* query NOT result */
             $request->query->getInt('page', 1), /* page number */
@@ -55,7 +55,7 @@ final class AdminController extends AbstractController
     #[Route('/admin/edit/{id}', name: 'app_admin_edit')]
     public function editGame($id, MessageRepository $messageRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
-
+        // code pour éditer dans le crud
         $message = $messageRepository->find($id);
         $newMessageForm = $this->createForm(MessageFormType::class, $message);
         $newMessageForm->handleRequest($request);

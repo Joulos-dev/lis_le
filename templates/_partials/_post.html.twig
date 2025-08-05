@@ -1,5 +1,7 @@
 {% set messageLiked = has_user_reacted(app.user, post) %}
 
+{#ce style margin-left paramétrer par rapport au treePosition permet de visuellement#}
+{#repérer le niveau du commentaire pour l'utilisateur#}
 <div class="post" style="margin-left: {{ post.treePosition*2 }}em">
     <div class="post-top">
         <div>

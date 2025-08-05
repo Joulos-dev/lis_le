@@ -43,6 +43,7 @@ final class SubmitPostController extends AbstractController
             if ($id !== null) {
                 $parentMessage = $messageRepository->findOneBy(['id' => $id]);
                 $message->setParent($parentMessage);
+                // tree position permet de savoir à quel niveau se situe le message ( post , commentaire 1 , commentaire 2 etc ...)
                 $message->setTreePosition($parentMessage->getTreePosition() + 1);
             } else {
                 $message->setTreePosition(0);
@@ -56,6 +57,8 @@ final class SubmitPostController extends AbstractController
             $message->setUser($this->getUser());
             $message->setCreatedAt(new \DateTime());
 
+            // définir le Type du message qui sera repris partout $isPost
+            // notamment dans le form.
             if ($isPost) {
                 $message->setType('post');
             } else {
