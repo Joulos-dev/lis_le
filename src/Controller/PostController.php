@@ -70,12 +70,20 @@ final class PostController extends AbstractController
                 ->setCreatedAt(new \DateTime());
 
             $em->persist($existingReaction);
+
+            //INSERT INTO reaction(user_id, message_id, type, created_at)
+            //VALUES(2, 3, 1, '2025-01-01')
         } else {
             if (intval($existingReaction->isType()) === $type) {
+                // si il clique sur "like" et que le type actuelle est aussi like
+                // en sql >>> DELETE FROM reaction WHERE id = x
                 $em->remove($existingReaction);
+                // alors on l'enlève
                 $messageLiked = null;
             } else {
                 $existingReaction->setType($type);
+                // sinon on met l'inverse
+                // en sql >>> UPDATE FROM reaction SET type = *new type* WHERE id = x
             }
         }
 

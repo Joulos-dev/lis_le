@@ -15,9 +15,10 @@
         <h1>Fil d'actualité</h1>
     {% endif %}
 
-<div class="post-container">
+
     {% for post in lastPost %}
+    <div class="post-container">
         {% include '_partials/_post.html.twig' %}
+    </div>
     {% endfor %}
-</div>
 {% endblock %}
