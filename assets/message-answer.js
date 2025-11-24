@@ -1,7 +1,7 @@
 
 
 // js qui créé l'event qui réagit au click des bouton ajouter un message,
-// qui affiche le form et le place au bon endroit (supprime class hidden + injection html closest post )
+// qui affiche le form et le place au bon endroit (supprime class hidden + insertion html *closest post* )
 function initFormMessage() {
     const buttons = document.querySelectorAll('[data-message-response]');
     buttons.forEach((btn) => {

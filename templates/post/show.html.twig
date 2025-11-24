@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShowController!{% endblock %}
+{% block title %}Post{% endblock %}
 
 {% block body %}
 
@@ -18,7 +18,6 @@
         </div>
         {{ form_end(newMessageForm) }}
     </div>
-
 
     {% include 'post/_item_message.html.twig' with  {
         'post': post,
