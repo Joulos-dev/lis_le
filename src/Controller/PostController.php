@@ -48,7 +48,6 @@ final class PostController extends AbstractController
     {
         $message = $messageRepository->find($id);
 
-
         $user = $this->getUser();
         $redirectLogin = $generator->generate('app_login');
 
