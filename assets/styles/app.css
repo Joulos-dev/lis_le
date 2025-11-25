@@ -100,6 +100,10 @@ input {
     display:none;
 }
 
+.rechercher input {
+    color:white;
+}
+
 .recherche-resultat {
     margin-inline:1rem;
 }
@@ -179,6 +183,7 @@ h2 {
 .post img {
     margin: auto;
     border-radius: 10px;
+    max-width: 400px;
 }
 
 .post button {
@@ -259,12 +264,45 @@ a svg {
     margin-inline: 8px;
     padding: 1rem;
     gap: 0.5rem;
+    /*color: white;*/
 }
 
-.form-button {
-    text-align: right;
-    margin-top: 1rem;
+.form-container div {
+    padding: 0.5rem;
+    color: white;
+    max-width: 100%;
 }
+
+.form-container label {
+    padding: 1rem;
+}
+
+.form-container button {
+    background-color: #1B2A41;
+    color: white;
+}
+
+.form-container textarea {
+    background-color: #222222;
+}
+
+.form-container select {
+    background-color: #222222;
+}
+
+.form-container input {
+    color: white;
+    margin-block: 0.3rem;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+/*.form-button {*/
+/*    text-align: right;*/
+/*    margin-top: 1rem;*/
+/*}*/
 
 form {
     gap: 1rem;
@@ -298,6 +336,7 @@ footer {
 
 .flex-footer {
     display: flex;
+    flex-direction: column;
     gap: 5px;
     align-items: center;
 }

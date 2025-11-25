@@ -25,7 +25,7 @@ function initReactionButtons(container) {
                 .then((jsonContent) => {
                     if (jsonContent.login) {
                         // FUTURE sweetAlert
-                        // Faire le href dans le confirm de l'alert
+                        // Faire le href dans le confirm de l'alerts
                         window.location.href = jsonContent.login;
                     }
 
